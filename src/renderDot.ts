@@ -1,20 +1,18 @@
 import cp from 'child_process';
 import { IRootCluster, toDot } from 'ts-graphviz';
-
-export type Format = 'png' | 'svg' | 'json' | 'jpg' | 'pdf' | 'xdot' | 'plain' | 'dot_json';
-
-export type RenderDotOption = {
-  format?: Format;
-  output?: string;
-  dotCommand?: string;
-};
+import { ExecuteOption } from './types';
 
 /**
  * Run dot command and output result to the specified path.
  *
+ * @deprecated
+ * Please understand the disadvantages before using it because it uses a blocking API.
+ * This API is not maintained and will be removed in the future.
+ *
  * ```ts
  * import path from "path";
- * import { digraph, attribute, renderDot } from "ts-graphviz";
+ * import { digraph, attribute } from "ts-graphviz";
+ * import { executeDot } from "@ts-graphviz/node";
  *
  * const G = digraph("G", (g) => {
  *   const a = g.node("aa");
@@ -45,14 +43,14 @@ export type RenderDotOption = {
  */
 export function renderDot(
   dot: IRootCluster | string,
-  { format = 'png', output = undefined, dotCommand = 'dot' }: RenderDotOption = {},
+  { format = 'png', output = undefined, dotCommand = 'dot' }: ExecuteOption = {},
 ): Buffer {
   const input = typeof dot === 'string' ? dot : toDot(dot);
-  const cmd = [dotCommand, `-T${format}`];
+  const args = [dotCommand, `-T${format}`];
   if (typeof output === 'string') {
-    cmd.push('-o', output);
+    args.push('-o', output);
   }
-  return cp.execSync(cmd.join(' '), {
+  return cp.execFileSync(dotCommand, args, {
     stdio: 'pipe',
     input,
   });
