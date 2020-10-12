@@ -1,10 +1,11 @@
-import { IRootCluster } from 'ts-graphviz';
-import { ExecuteOption } from './types';
+import { IRootCluster, toDot } from 'ts-graphviz';
+import { Format } from './types';
 import { executeDot } from './executeDot';
 
 /**
  * Returns the Graphviz output result as a buffer.
  */
-export async function exportToBuffer(dot: IRootCluster | string, options: ExecuteOption): Promise<Buffer> {
-  return await executeDot(dot, options);
+export async function exportToBuffer(dot: IRootCluster | string, options: { format?: Format } = {}): Promise<Buffer> {
+  const input = typeof dot === 'string' ? dot : toDot(dot);
+  return await executeDot(input, options);
 }

@@ -1,5 +1,5 @@
-import { IRootCluster } from 'ts-graphviz';
-import { DotOption, Format } from './types';
+import { IRootCluster, toDot } from 'ts-graphviz';
+import { DotOption, ExecuteDotOption } from './types';
 import { executeDot } from './executeDot';
 
 /**
@@ -31,18 +31,16 @@ import { executeDot } from './executeDot';
  *   });
  * });
  *
- * await exportToFile(G, "svg", path.resolve(__dirname, "./callback.svg"));
+ * await exportToFile(G, {
+ *  format: "svg",
+ *  output: path.resolve(__dirname, "./callback.svg"),
+ * });
  * ```
  */
 export async function exportToFile(
   dot: IRootCluster | string,
-  format: Format,
-  output: string,
-  options: DotOption = {},
+  options: Required<ExecuteDotOption> & DotOption,
 ): Promise<void> {
-  await executeDot(dot, {
-    ...options,
-    format,
-    output,
-  });
+  const input = typeof dot === 'string' ? dot : toDot(dot);
+  await executeDot(input, options);
 }
