@@ -15,6 +15,15 @@
         "code",
         "ideas"
       ]
+    },
+    {
+      "login": "ArtemAdamenko",
+      "name": "Artem",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2178516?v=4",
+      "profile": "https://github.com/ArtemAdamenko",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,
