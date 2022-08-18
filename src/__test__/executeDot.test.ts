@@ -15,6 +15,7 @@ describe('executeDot', () => {
 
     expect(writeFile).toBeCalledWith(0, dot);
     expect(execFile).toBeCalledWith('dot', ['/path/to/mock'], {
+      shell: true,
       encoding: 'buffer',
     });
   });
@@ -24,6 +25,7 @@ describe('executeDot', () => {
       output: '/path/to/output',
     });
     expect(execFile).toBeCalledWith('dot', ['-o', '/path/to/output', '/path/to/mock'], {
+      shell: true,
       encoding: 'buffer',
     });
   });
@@ -33,6 +35,7 @@ describe('executeDot', () => {
       suppressWarnings: true,
     });
     expect(execFile).toBeCalledWith('dot', ['-q', '/path/to/mock'], {
+      shell: true,
       encoding: 'buffer',
     });
   });
@@ -42,6 +45,7 @@ describe('executeDot', () => {
       format: 'pdf',
     });
     expect(execFile).toBeCalledWith('dot', ['-Tpdf', '/path/to/mock'], {
+      shell: true,
       encoding: 'buffer',
     });
   });
@@ -52,6 +56,7 @@ describe('executeDot', () => {
       output: '/path/to/output',
     });
     expect(execFile).toBeCalledWith('dot', ['-Tpdf', '-o', '/path/to/output', '/path/to/mock'], {
+      shell: true,
       encoding: 'buffer',
     });
   });
