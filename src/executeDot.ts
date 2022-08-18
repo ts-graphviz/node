@@ -25,7 +25,7 @@ export async function executeDot(
       args.push('-o', output);
     }
     args.push(path);
-    const { stdout } = await execFile(cmd, args, { ...childProcessOptions, encoding: 'buffer' });
+    const { stdout } = await execFile(cmd, args, { ...childProcessOptions, shell: true, encoding: 'buffer' });
     return stdout;
   } finally {
     await cleanup();
